@@ -1,0 +1,1411 @@
+version = 4.2
+
+//
+// Saved by sw version: 2026.3
+//
+
+model "Frequency support of renewable grid using large scale ESS." {
+    configuration {
+        hil_device = "VHIL+"
+        hil_configuration_id = 1
+        simulation_method = exact
+        simulation_time_step = auto
+        fine_auto_sim_step = False
+        simulation_discret_scaling = 1.0
+        dsp_timer_periods = 100e-6, 50e-3
+        ss_calc_method = "systematic elimination"
+        enb_pole_shift = True
+        enb_gds_oversampling = True
+        show_modes = False
+        device_ao_limit_enable = False
+        reset_analog_outputs_on_sim_stop = True
+        reset_analog_outputs_on_sim_stop_mode = Offset values
+        reset_digital_outputs_on_sim_stop = True
+        vhil_adio_loopback = False
+        dma_enable = False
+        cpl_stb = False
+        enb_dep_sw_detect = False
+        code_section = "internal memory"
+        data_section = "internal memory"
+        sys_sp_rate_1 = 0.0001
+        sys_sp_rate_2 = 0.05
+        sys_real_type_precision = "default"
+        user_real_type_precision = "default"
+        sys_cpu_optimization = "high"
+        user_cpu_optimization = "high"
+        user_cpu_part_option = "default"
+        matrix_based_reduction = True
+        cpl_dynamics_analysis = False
+        export_ss_to_pickle = False
+        ground_scope_core = False
+        dss_num_tol = 1e-15
+        cce_platform = "generic"
+        cce_use_relative_names = False
+        cce_type_mapping_real = "double"
+        cce_type_mapping_uint = "unsigned int"
+        cce_type_mapping_int = "int"
+        cce_platform = "generic"
+        cce_use_relative_names = False
+        cce_type_mapping_real = "double"
+        cce_type_mapping_uint = "unsigned int"
+        cce_type_mapping_int = "int"
+        cce_term_var_location = "local"
+        cce_directory = ""
+        cce_custom_type_int = ""
+        cce_custom_type_uint = ""
+        cce_custom_type_real = ""
+        tunable_params = "component defined"
+        sp_compiler_type = "C compiler"
+        sig_stim = "off"
+        export_resource_list = ""
+        export_dependency_list = ""
+        excluded_resource_list = ""
+        excluded_component_from_locking_list = ""
+        export_out_file = ""
+        export_lock_top_level = True
+        export_encrypt_library = True
+        export_encrypt_resources = True
+        solver_type = "DAE"
+        integration_method = "BDF"
+        max_sim_step = 1e-4
+        simulation_time = 1.0
+        abs_tol = 1e-3
+        rel_tol = 1e-3
+        init_sim_step = 1e-6
+        r_on_sw = 1e-3
+        v_on_diode = 0.1
+        data_sampling_rate = 0
+        feedthrough_validation_error_level = error
+    }
+
+    component Subsystem Root {
+        component "core/Transmission Line" "Transmission Line1" {
+        }
+        [
+            position = 8508, 8172
+        ]
+
+        component "core/Transmission Line" "Transmission Line2" {
+        }
+        [
+            position = 8476, 7856
+        ]
+
+        component "core/Battery ESS (Generic)" "Battery ESS (Generic)1" {
+            Pnom = "250e3"
+            Snom = "400e3"
+            Vnom_sec_LL = "400"
+            include_transformer = "False"
+        }
+        [
+            position = 7388, 7928
+            size = 144, 136
+        ]
+
+        component "core/Battery ESS (Generic)" "Battery ESS (Generic)2" {
+            Pnom = "250e3"
+            Snom = "400e3"
+            Vnom_sec_LL = "400"
+            include_transformer = "False"
+        }
+        [
+            position = 7384, 8116
+            size = 144, 136
+        ]
+
+        component "core/Battery inverter" "Battery inverter1" {
+        }
+        [
+            position = 7680, 7848
+        ]
+
+        component "core/Battery inverter" "Battery inverter2" {
+        }
+        [
+            position = 7680, 8184
+        ]
+
+        component Subsystem "39 Bus NE Grid" {
+            layout = dynamic
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic2" {
+            }
+            [
+                position = 8824, 8180
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line2" {
+            }
+            [
+                position = 7036, 5892
+            ]
+
+            component "core/Transmission Line" "Transmission Line4" {
+            }
+            [
+                position = 8680, 7548
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 32 (Three-phase Meter4)" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 8700, 8008
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load1" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 8692, 7780
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr1 {
+            }
+            [
+                position = 8688, 7304
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic3" {
+            }
+            [
+                position = 9556, 8168
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line5" {
+            }
+            [
+                position = 9412, 7536
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 34 (Three-phase Meter4)1" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 9432, 7996
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load2" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 9424, 7768
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr2 {
+            }
+            [
+                position = 9420, 7292
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic4" {
+            }
+            [
+                position = 10256, 8168
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line6" {
+            }
+            [
+                position = 10112, 7536
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 33 (Three-phase Meter4)2" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 10132, 7996
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load3" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 10124, 7768
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr3 {
+            }
+            [
+                position = 10120, 7292
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic5" {
+            }
+            [
+                position = 11008, 8176
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line7" {
+            }
+            [
+                position = 10864, 7544
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 36 (Three-phase Meter4)3" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 10884, 8004
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load4" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 10876, 7776
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr4 {
+            }
+            [
+                position = 10872, 7300
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic6" {
+            }
+            [
+                position = 7828, 8392
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line8" {
+            }
+            [
+                position = 7684, 7760
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 39 (Three-phase Meter4)4" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 7704, 8220
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load5" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 7696, 7992
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr5 {
+            }
+            [
+                position = 7692, 7516
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic7" {
+            }
+            [
+                position = 13232, 5676
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line9" {
+            }
+            [
+                position = 13088, 5044
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 32 (Three-phase Meter4)1" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 13108, 5504
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load6" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 13100, 5276
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr6 {
+            }
+            [
+                position = 13096, 4800
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic8" {
+            }
+            [
+                position = 13172, 916
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line10" {
+            }
+            [
+                position = 13028, 284
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 38 (Three-phase Meter4)2" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 13048, 744
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load7" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 13040, 516
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr7 {
+            }
+            [
+                position = 13036, 40
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic9" {
+            }
+            [
+                position = 7568, 920
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line11" {
+            }
+            [
+                position = 7424, 288
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 37 (Three-phase Meter4)3" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 7444, 744
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load8" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 7436, 520
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr8 {
+            }
+            [
+                position = 7432, 40
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic10" {
+            }
+            [
+                position = 2836, 480
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line12" {
+            }
+            [
+                position = 2692, -152
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 30 (Three-phase Meter4)4" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 2712, 304
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load9" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 2704, 80
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr9 {
+            }
+            [
+                position = 2700, -400
+                rotation = left
+            ]
+
+            component "core/Three Phase Wound Rotor Synchronous Machine (Generic)" "3 ph WRSYNC Generic11" {
+            }
+            [
+                position = 1120, 4544
+                scale = 1, -1
+            ]
+
+            component "core/Transmission Line" "Transmission Line13" {
+            }
+            [
+                position = 976, 3912
+                rotation = right
+            ]
+
+            component "core/Three-phase Meter" "BUS 32 (Three-phase Meter4)5" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 996, 4372
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Constant Impedance Load" "Constant Impedance Load10" {
+                SAB = "1000000.0/3"
+                SAn = "1000000.0/3"
+                SBC = "1000000.0/3"
+                SBn = "1000000.0/3"
+                SCA = "1000000.0/3"
+                SCn = "1000000.0/3"
+                VAn = "480/np.sqrt(3)"
+                VBn = "480/np.sqrt(3)"
+                VCn = "480/np.sqrt(3)"
+            }
+            [
+                position = 988, 4144
+                rotation = down
+                size = 184, 152
+            ]
+
+            component "core/Three-phase Meter" "BUS 36 (Three-phase Meter4)4" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 10860, 6888
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Three-phase Meter" "BUS 20 (Three-phase Meter4)5" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 9388, 6812
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Three Phase Two Winding Transformer" Tr10 {
+            }
+            [
+                position = 9344, 6644
+                rotation = left
+            ]
+
+            component "core/Three-phase Meter" "BUS 19 (Three-phase Meter4)6" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 9788, 6572
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Three-phase Meter" "BUS 36 (Three-phase Meter4)7" {
+                Ts = "replaced_by_execution_rate"
+            }
+            [
+                position = 10332, 6276
+                rotation = right
+                size = 56, 240
+            ]
+
+            component "core/Transmission Line" "Transmission Line14" {
+            }
+            [
+                position = 10868, 7088
+                rotation = right
+            ]
+
+            component "core/Transmission Line" "Transmission Line15" {
+            }
+            [
+                position = 10120, 7040
+                rotation = right
+            ]
+
+            component "core/Transmission Line" "Transmission Line16" {
+            }
+            [
+                position = 9412, 7072
+                rotation = right
+            ]
+
+            port P1 {
+                position = left:auto
+                kind = pe
+            }
+            [
+                position = 7768, 7184
+            ]
+
+            port P2 {
+                position = right:auto
+                kind = pe
+            }
+            [
+                position = 7980, 7208
+                scale = -1, 1
+            ]
+
+            junction Junction1 pe
+            [
+                position = 8604, 7956
+            ]
+
+            junction Junction2 pe
+            [
+                position = 8700, 7940
+            ]
+
+            junction Junction3 pe
+            [
+                position = 8796, 7940
+            ]
+
+            junction Junction4 pe
+            [
+                position = 9336, 7944
+            ]
+
+            junction Junction5 pe
+            [
+                position = 9432, 7928
+            ]
+
+            junction Junction6 pe
+            [
+                position = 9528, 7928
+            ]
+
+            junction Junction7 pe
+            [
+                position = 10036, 7944
+            ]
+
+            junction Junction8 pe
+            [
+                position = 10132, 7928
+            ]
+
+            junction Junction9 pe
+            [
+                position = 10228, 7928
+            ]
+
+            junction Junction10 pe
+            [
+                position = 10788, 7952
+            ]
+
+            junction Junction11 pe
+            [
+                position = 10884, 7936
+            ]
+
+            junction Junction12 pe
+            [
+                position = 10980, 7936
+            ]
+
+            junction Junction13 pe
+            [
+                position = 7608, 8168
+            ]
+
+            junction Junction14 pe
+            [
+                position = 7704, 8152
+            ]
+
+            junction Junction15 pe
+            [
+                position = 7800, 8152
+            ]
+
+            junction Junction16 pe
+            [
+                position = 13012, 5452
+            ]
+
+            junction Junction17 pe
+            [
+                position = 13108, 5436
+            ]
+
+            junction Junction18 pe
+            [
+                position = 13204, 5436
+            ]
+
+            junction Junction19 pe
+            [
+                position = 12952, 692
+            ]
+
+            junction Junction20 pe
+            [
+                position = 13048, 676
+            ]
+
+            junction Junction21 pe
+            [
+                position = 13144, 676
+            ]
+
+            junction Junction22 pe
+            [
+                position = 7348, 696
+            ]
+
+            junction Junction23 pe
+            [
+                position = 7444, 680
+            ]
+
+            junction Junction24 pe
+            [
+                position = 7540, 680
+            ]
+
+            junction Junction25 pe
+            [
+                position = 2616, 256
+            ]
+
+            junction Junction26 pe
+            [
+                position = 2712, 240
+            ]
+
+            junction Junction27 pe
+            [
+                position = 2808, 240
+            ]
+
+            junction Junction28 pe
+            [
+                position = 900, 4320
+            ]
+
+            junction Junction29 pe
+            [
+                position = 996, 4304
+            ]
+
+            junction Junction30 pe
+            [
+                position = 1092, 4304
+            ]
+
+            connect P2 P1 as Connection1
+            [
+                breakpoints = 7948, 7276; 8008, 7276; 8008, 7292; 7800, 7292
+            ]
+            connect "3 ph WRSYNC Generic2.C" "BUS 32 (Three-phase Meter4).C-" as Connection8
+            [
+                breakpoints = 8568, 8136; 8568, 8060; 8600, 8056
+            ]
+            connect "3 ph WRSYNC Generic2.B" "BUS 32 (Three-phase Meter4).B-" as Connection9
+            [
+                breakpoints = 8708, 8172
+            ]
+            connect "3 ph WRSYNC Generic2.A" "BUS 32 (Three-phase Meter4).A-" as Connection10
+            [
+                breakpoints = 8756, 8068; 8800, 8068
+            ]
+            connect "BUS 32 (Three-phase Meter4).C+" Junction1 as Connection29
+            connect Junction1 "Transmission Line4.c_out" as Connection30
+            connect "Constant Impedance Load1.C" Junction1 as Connection31
+            connect "BUS 32 (Three-phase Meter4).B+" Junction2 as Connection32
+            connect Junction2 "Transmission Line4.b_out" as Connection33
+            connect "Constant Impedance Load1.B" Junction2 as Connection34
+            connect "BUS 32 (Three-phase Meter4).A+" Junction3 as Connection35
+            connect Junction3 "Transmission Line4.a_out" as Connection36
+            connect "Constant Impedance Load1.A" Junction3 as Connection37
+            connect "Transmission Line4.a_in" Tr1.prm_3 as Connection38
+            connect "Transmission Line4.b_in" Tr1.prm_2 as Connection39
+            connect "Transmission Line4.c_in" Tr1.prm_1 as Connection40
+            connect "3 ph WRSYNC Generic3.C" "BUS 34 (Three-phase Meter4)1.C-" as Connection41
+            [
+                breakpoints = 9300, 8124; 9300, 8048; 9332, 8044
+            ]
+            connect "3 ph WRSYNC Generic3.B" "BUS 34 (Three-phase Meter4)1.B-" as Connection42
+            [
+                breakpoints = 9440, 8160
+            ]
+            connect "3 ph WRSYNC Generic3.A" "BUS 34 (Three-phase Meter4)1.A-" as Connection43
+            [
+                breakpoints = 9488, 8056; 9532, 8056
+            ]
+            connect "BUS 34 (Three-phase Meter4)1.C+" Junction4 as Connection44
+            connect Junction4 "Transmission Line5.c_out" as Connection45
+            connect "Constant Impedance Load2.C" Junction4 as Connection46
+            connect "BUS 34 (Three-phase Meter4)1.B+" Junction5 as Connection47
+            connect Junction5 "Transmission Line5.b_out" as Connection48
+            connect "Constant Impedance Load2.B" Junction5 as Connection49
+            connect "BUS 34 (Three-phase Meter4)1.A+" Junction6 as Connection50
+            connect Junction6 "Transmission Line5.a_out" as Connection51
+            connect "Constant Impedance Load2.A" Junction6 as Connection52
+            connect "Transmission Line5.a_in" Tr2.prm_3 as Connection53
+            connect "Transmission Line5.b_in" Tr2.prm_2 as Connection54
+            connect "Transmission Line5.c_in" Tr2.prm_1 as Connection55
+            connect "3 ph WRSYNC Generic4.C" "BUS 33 (Three-phase Meter4)2.C-" as Connection56
+            [
+                breakpoints = 10000, 8124; 10000, 8048; 10032, 8044
+            ]
+            connect "3 ph WRSYNC Generic4.B" "BUS 33 (Three-phase Meter4)2.B-" as Connection57
+            [
+                breakpoints = 10140, 8160
+            ]
+            connect "3 ph WRSYNC Generic4.A" "BUS 33 (Three-phase Meter4)2.A-" as Connection58
+            [
+                breakpoints = 10188, 8056; 10232, 8056
+            ]
+            connect "BUS 33 (Three-phase Meter4)2.C+" Junction7 as Connection59
+            connect Junction7 "Transmission Line6.c_out" as Connection60
+            connect "Constant Impedance Load3.C" Junction7 as Connection61
+            connect "BUS 33 (Three-phase Meter4)2.B+" Junction8 as Connection62
+            connect Junction8 "Transmission Line6.b_out" as Connection63
+            connect "Constant Impedance Load3.B" Junction8 as Connection64
+            connect "BUS 33 (Three-phase Meter4)2.A+" Junction9 as Connection65
+            connect Junction9 "Transmission Line6.a_out" as Connection66
+            connect "Constant Impedance Load3.A" Junction9 as Connection67
+            connect "Transmission Line6.a_in" Tr3.prm_3 as Connection68
+            connect "Transmission Line6.b_in" Tr3.prm_2 as Connection69
+            connect "Transmission Line6.c_in" Tr3.prm_1 as Connection70
+            connect "3 ph WRSYNC Generic5.C" "BUS 36 (Three-phase Meter4)3.C-" as Connection71
+            [
+                breakpoints = 10752, 8132; 10752, 8056; 10784, 8052
+            ]
+            connect "3 ph WRSYNC Generic5.B" "BUS 36 (Three-phase Meter4)3.B-" as Connection72
+            [
+                breakpoints = 10892, 8168
+            ]
+            connect "3 ph WRSYNC Generic5.A" "BUS 36 (Three-phase Meter4)3.A-" as Connection73
+            [
+                breakpoints = 10940, 8064; 10984, 8064
+            ]
+            connect "BUS 36 (Three-phase Meter4)3.C+" Junction10 as Connection74
+            connect Junction10 "Transmission Line7.c_out" as Connection75
+            connect "Constant Impedance Load4.C" Junction10 as Connection76
+            connect "BUS 36 (Three-phase Meter4)3.B+" Junction11 as Connection77
+            connect Junction11 "Transmission Line7.b_out" as Connection78
+            connect "Constant Impedance Load4.B" Junction11 as Connection79
+            connect "BUS 36 (Three-phase Meter4)3.A+" Junction12 as Connection80
+            connect Junction12 "Transmission Line7.a_out" as Connection81
+            connect "Constant Impedance Load4.A" Junction12 as Connection82
+            connect "Transmission Line7.a_in" Tr4.prm_3 as Connection83
+            connect "Transmission Line7.b_in" Tr4.prm_2 as Connection84
+            connect "Transmission Line7.c_in" Tr4.prm_1 as Connection85
+            connect "3 ph WRSYNC Generic6.C" "BUS 39 (Three-phase Meter4)4.C-" as Connection86
+            [
+                breakpoints = 7572, 8348; 7572, 8272; 7604, 8268
+            ]
+            connect "3 ph WRSYNC Generic6.B" "BUS 39 (Three-phase Meter4)4.B-" as Connection87
+            [
+                breakpoints = 7712, 8384
+            ]
+            connect "3 ph WRSYNC Generic6.A" "BUS 39 (Three-phase Meter4)4.A-" as Connection88
+            [
+                breakpoints = 7760, 8280; 7804, 8280
+            ]
+            connect "BUS 39 (Three-phase Meter4)4.C+" Junction13 as Connection89
+            connect Junction13 "Transmission Line8.c_out" as Connection90
+            connect "Constant Impedance Load5.C" Junction13 as Connection91
+            connect "BUS 39 (Three-phase Meter4)4.B+" Junction14 as Connection92
+            connect Junction14 "Transmission Line8.b_out" as Connection93
+            connect "Constant Impedance Load5.B" Junction14 as Connection94
+            connect "BUS 39 (Three-phase Meter4)4.A+" Junction15 as Connection95
+            connect Junction15 "Transmission Line8.a_out" as Connection96
+            connect "Constant Impedance Load5.A" Junction15 as Connection97
+            connect "Transmission Line8.a_in" Tr5.prm_3 as Connection98
+            connect "Transmission Line8.b_in" Tr5.prm_2 as Connection99
+            connect "Transmission Line8.c_in" Tr5.prm_1 as Connection100
+            connect "3 ph WRSYNC Generic7.C" "BUS 32 (Three-phase Meter4)1.C-" as Connection101
+            [
+                breakpoints = 12976, 5632; 12976, 5556; 13008, 5552
+            ]
+            connect "3 ph WRSYNC Generic7.B" "BUS 32 (Three-phase Meter4)1.B-" as Connection102
+            [
+                breakpoints = 13116, 5668
+            ]
+            connect "3 ph WRSYNC Generic7.A" "BUS 32 (Three-phase Meter4)1.A-" as Connection103
+            [
+                breakpoints = 13164, 5564; 13208, 5564
+            ]
+            connect "BUS 32 (Three-phase Meter4)1.C+" Junction16 as Connection104
+            connect Junction16 "Transmission Line9.c_out" as Connection105
+            connect "Constant Impedance Load6.C" Junction16 as Connection106
+            connect "BUS 32 (Three-phase Meter4)1.B+" Junction17 as Connection107
+            connect Junction17 "Transmission Line9.b_out" as Connection108
+            connect "Constant Impedance Load6.B" Junction17 as Connection109
+            connect "BUS 32 (Three-phase Meter4)1.A+" Junction18 as Connection110
+            connect Junction18 "Transmission Line9.a_out" as Connection111
+            connect "Constant Impedance Load6.A" Junction18 as Connection112
+            connect "Transmission Line9.a_in" Tr6.prm_3 as Connection113
+            connect "Transmission Line9.b_in" Tr6.prm_2 as Connection114
+            connect "Transmission Line9.c_in" Tr6.prm_1 as Connection115
+            connect "3 ph WRSYNC Generic8.C" "BUS 38 (Three-phase Meter4)2.C-" as Connection116
+            [
+                breakpoints = 12916, 872; 12916, 796; 12948, 792
+            ]
+            connect "3 ph WRSYNC Generic8.B" "BUS 38 (Three-phase Meter4)2.B-" as Connection117
+            [
+                breakpoints = 13056, 908
+            ]
+            connect "3 ph WRSYNC Generic8.A" "BUS 38 (Three-phase Meter4)2.A-" as Connection118
+            [
+                breakpoints = 13104, 804; 13148, 804
+            ]
+            connect "BUS 38 (Three-phase Meter4)2.C+" Junction19 as Connection119
+            connect Junction19 "Transmission Line10.c_out" as Connection120
+            connect "Constant Impedance Load7.C" Junction19 as Connection121
+            connect "BUS 38 (Three-phase Meter4)2.B+" Junction20 as Connection122
+            connect Junction20 "Transmission Line10.b_out" as Connection123
+            connect "Constant Impedance Load7.B" Junction20 as Connection124
+            connect "BUS 38 (Three-phase Meter4)2.A+" Junction21 as Connection125
+            connect Junction21 "Transmission Line10.a_out" as Connection126
+            connect "Constant Impedance Load7.A" Junction21 as Connection127
+            connect "Transmission Line10.a_in" Tr7.prm_3 as Connection128
+            connect "Transmission Line10.b_in" Tr7.prm_2 as Connection129
+            connect "Transmission Line10.c_in" Tr7.prm_1 as Connection130
+            connect "3 ph WRSYNC Generic9.C" "BUS 37 (Three-phase Meter4)3.C-" as Connection131
+            [
+                breakpoints = 7312, 872; 7312, 800; 7344, 792
+            ]
+            connect "3 ph WRSYNC Generic9.B" "BUS 37 (Three-phase Meter4)3.B-" as Connection132
+            [
+                breakpoints = 7452, 912
+            ]
+            connect "3 ph WRSYNC Generic9.A" "BUS 37 (Three-phase Meter4)3.A-" as Connection133
+            [
+                breakpoints = 7500, 808; 7544, 808
+            ]
+            connect "BUS 37 (Three-phase Meter4)3.C+" Junction22 as Connection134
+            connect Junction22 "Transmission Line11.c_out" as Connection135
+            connect "Constant Impedance Load8.C" Junction22 as Connection136
+            connect "BUS 37 (Three-phase Meter4)3.B+" Junction23 as Connection137
+            connect Junction23 "Transmission Line11.b_out" as Connection138
+            connect "Constant Impedance Load8.B" Junction23 as Connection139
+            connect "BUS 37 (Three-phase Meter4)3.A+" Junction24 as Connection140
+            connect Junction24 "Transmission Line11.a_out" as Connection141
+            connect "Constant Impedance Load8.A" Junction24 as Connection142
+            connect "Transmission Line11.a_in" Tr8.prm_3 as Connection143
+            connect "Transmission Line11.b_in" Tr8.prm_2 as Connection144
+            connect "Transmission Line11.c_in" Tr8.prm_1 as Connection145
+            connect "3 ph WRSYNC Generic10.C" "BUS 30 (Three-phase Meter4)4.C-" as Connection146
+            [
+                breakpoints = 2580, 432; 2580, 360; 2612, 352
+            ]
+            connect "3 ph WRSYNC Generic10.B" "BUS 30 (Three-phase Meter4)4.B-" as Connection147
+            [
+                breakpoints = 2720, 472
+            ]
+            connect "3 ph WRSYNC Generic10.A" "BUS 30 (Three-phase Meter4)4.A-" as Connection148
+            [
+                breakpoints = 2768, 368; 2812, 368
+            ]
+            connect "BUS 30 (Three-phase Meter4)4.C+" Junction25 as Connection149
+            connect Junction25 "Transmission Line12.c_out" as Connection150
+            connect "Constant Impedance Load9.C" Junction25 as Connection151
+            connect "BUS 30 (Three-phase Meter4)4.B+" Junction26 as Connection152
+            connect Junction26 "Transmission Line12.b_out" as Connection153
+            connect "Constant Impedance Load9.B" Junction26 as Connection154
+            connect "BUS 30 (Three-phase Meter4)4.A+" Junction27 as Connection155
+            connect Junction27 "Transmission Line12.a_out" as Connection156
+            connect "Constant Impedance Load9.A" Junction27 as Connection157
+            connect "Transmission Line12.a_in" Tr9.prm_3 as Connection158
+            connect "Transmission Line12.b_in" Tr9.prm_2 as Connection159
+            connect "Transmission Line12.c_in" Tr9.prm_1 as Connection160
+            connect "3 ph WRSYNC Generic11.C" "BUS 32 (Three-phase Meter4)5.C-" as Connection161
+            [
+                breakpoints = 864, 4500; 864, 4424; 896, 4420
+            ]
+            connect "3 ph WRSYNC Generic11.B" "BUS 32 (Three-phase Meter4)5.B-" as Connection162
+            [
+                breakpoints = 1004, 4536
+            ]
+            connect "3 ph WRSYNC Generic11.A" "BUS 32 (Three-phase Meter4)5.A-" as Connection163
+            [
+                breakpoints = 1052, 4432; 1096, 4432
+            ]
+            connect "BUS 32 (Three-phase Meter4)5.C+" Junction28 as Connection164
+            connect Junction28 "Transmission Line13.c_out" as Connection165
+            connect "Constant Impedance Load10.C" Junction28 as Connection166
+            connect "BUS 32 (Three-phase Meter4)5.B+" Junction29 as Connection167
+            connect Junction29 "Transmission Line13.b_out" as Connection168
+            connect "Constant Impedance Load10.B" Junction29 as Connection169
+            connect "BUS 32 (Three-phase Meter4)5.A+" Junction30 as Connection170
+            connect Junction30 "Transmission Line13.a_out" as Connection171
+            connect "Constant Impedance Load10.A" Junction30 as Connection172
+        }
+        [
+            position = 8124, 8016
+            size = 112, 56
+        ]
+    }
+
+    default {
+        "core/Battery ESS (Generic)" {
+            Pnom = "20e3"
+            Snom = "40e3"
+            Vnom_LL = "400"
+            fnom = "50"
+            include_transformer = "True"
+            Vnom_sec_LL = "2300"
+            wL_pu = "0.1"
+            Zt_pu = "0.04"
+            dc_link_margin = "0.4"
+            opc_pu = "0.0"
+            Rshunt_pu = "2000"
+            Tfast = "100e-6"
+            Tslow = "500e-6"
+            Sg_sc_pu = "20"
+            PFg = "0.1"
+            cont_type = "Ideal"
+            resistance_cont = "1.0"
+            nom_batt_voltage = "200"
+            nom_batt_capacity = "120"
+            soc_range = "[10, 90]"
+            grid_code_fcn = "LVRT"
+            lvrt_req = "Germany"
+            vs_lvrt = "[0.0, 0.9, 0.901]"
+            ts_lvrt = "[0.15, 1.5, 1.501]"
+            preview = "Plot LVRT curve"
+            voltvar_req = "Custom"
+            vs_voltvar = "[0.6, 0.9, 1.1, 1.3]"
+            qs_voltvar = "[1.3, 0.0, 0.0, -0.7]"
+            preview_voltvar = "Plot VoltVAr curve"
+            hzwatt_req = "Custom"
+            fs_hzwatt = "[47.5, 47.8, 49.8, 50.2, 51.5]"
+            ps_hzwatt = "[2.0, 2.0, 0.0, 0.0, -0.52]"
+            preview_hzwatt = "Plot HzWatt curve"
+            voltwatt_req = "Custom"
+            vs_voltwatt = "[0.8, 1.06, 1.1, 1.3]"
+            ps_voltwatt = "[1.0, 1.0, 0.2, 0.2]"
+            preview_voltwatt = "Plot VoltWatt curve"
+        }
+
+        "core/Battery inverter" {
+            Sn = "1.6e6"
+            Vn = "480.0"
+            Vn_dc = "1000.0"
+            fn = "60.0"
+            fsw = "2500.0"
+            Ts = "200e-6"
+            L = "100.0e-6"
+            R = "1e-5"
+            OutputFilterFc = "500.0"
+            Resr = "15e-3"
+            blowpass = "[  9.82591682e-06,   1.96518336e-05,   9.82591682e-06]"
+            alowpass = "[ -1.99111429,  0.9911536 ]"
+            V_diff = "5"
+            Vmatch_Kp = "0.1"
+            Vmatch_Ki = "5.0"
+            f_diff = "0.2"
+            fmatch_Kp = "0.01"
+            fmatch_Ki = "3.0"
+            Phase_diff = "1.0"
+            Phase_Kp = "0.005"
+            Phase_Ki = "0.5"
+            ImodeId_Kp = "0.347"
+            ImodeId_Ki = "347.22"
+            ImodeIq_Kp = "0.347"
+            ImodeIq_Ki = "347.22"
+            Imode_damp = "-0.272"
+            powerRate = "1e5"
+            VmodeIdRef_Kp = "10.0"
+            VmodeIdRef_Ki = "10.0"
+            VmodeId_Kp = "0.8328"
+            VmodeId_Ki = "833.33"
+            Vmode_ovMod = "1.2"
+            Vmode_damp = "-0.0001"
+            V_rise = "10e3"
+            V_fall = "-10e3"
+            f_rise = "10.0"
+            f_fall = "-10.0"
+            mod_upLim = "1.1546"
+            mod_lowLim = "-1.1546"
+            k = "0.05"
+        }
+
+        "core/Constant Impedance Load" {
+            fn = "60"
+            conn_type = "Y"
+            enable_neutral = "False"
+            set_balanced = "True"
+            Vn_3ph = "480"
+            Sn_3ph = "1.0e6"
+            pf_mode_3ph = "Unit"
+            pf_3ph = "0.9"
+            VAn = "480/(3**0.5)"
+            VAB = "480"
+            SAn = "1.0e6/3"
+            SAB = "1.0e6/3"
+            pf_modeA = "Unit"
+            pfA = "0.9"
+            VBn = "480/(3**0.5)"
+            VBC = "480"
+            SBn = "1.0e6/3"
+            SBC = "1.0e6/3"
+            pf_modeB = "Unit"
+            pfB = "0.9"
+            VCn = "480/(3**0.5)"
+            VCA = "480"
+            SCn = "1.0e6/3"
+            SCA = "1.0e6/3"
+            pf_modeC = "Unit"
+            pfC = "0.9"
+        }
+
+        "core/Three Phase Two Winding Transformer" {
+            input = "SC and OC tests"
+            num_of_windings = "2"
+            Sn = "160000.0"
+            f = "50.0"
+            V1 = "10000.0"
+            V2 = "400.0"
+            usc1 = "4.0"
+            Psc1 = "2350.0"
+            R1 = "4.58984375"
+            L1 = ".0370093710364"
+            R2 = ".00734375"
+            L2 = "5.92149936583e-05"
+            r1 = ".00734375"
+            l1 = ".0186029389059"
+            r2 = ".00734375"
+            l2 = ".0186029389059"
+            core_model = "Linear"
+            ioc1 = "0.7"
+            Poc1 = "460.0"
+            Rm = "217391.304348"
+            Lm = "311.709196788"
+            flux_vals_SI = "[0, 1910.3, 2419.7]"
+            current_vals_SI = "[0, 0.66653, 277.72]"
+            rm = "347.826086957"
+            lm = "156.68213163"
+            flux_vals_pu = "[0, 1.2, 1.52]"
+            current_vals_pu = "[0, 0.0024, 1]"
+            flux_vals_SCOC = "[0, 1.2, 1.52]"
+            current_vals_SCOC = "[0, 0.0024, 1]"
+            upper_flux_vals_pu = "[0.2, 1.2, 1.52]"
+            upper_flux_vals_SI = "[318.33, 1910.3, 2419.7]"
+            upper_flux_vals_SCOC = "[0.2, 1.2, 1.52]"
+            hysteresis_number = "1"
+            execution_rate = "100e-6"
+            import_from_SI2SCOC = "Import from SI"
+            import_from_pu2SCOC = "Import from PU"
+            import_from_SCOC2SI = "Import from SC OC"
+            import_from_pu2SI = "Import from PU"
+            import_from_SCOC2pu = "Import from SC OC"
+            import_from_SI2pu = "Import from SI"
+            preview_flux_current = "Preview SI"
+            winding_1_connection = "Y"
+            winding_2_connection = "Y"
+            clock_number = "0"
+            embedded_cpl_12 = "None"
+            coupling_type = "core"
+            ratio_type_12 = "Automatic"
+            ratio_12 = "0.1"
+            Rshunt = "inf"
+        }
+
+        "core/Three Phase Wound Rotor Synchronous Machine (Generic)" {
+            signal_access = "inherit"
+            Vll = "480"
+            S = "5200"
+            Power = "5000"
+            Freq = "60"
+            RPM = "1800"
+            Ts = "100e-6"
+            J = "0.007"
+            Theta_0 = "0"
+            M_in = "Torque"
+            M_inp = "0"
+            meas_port_type = "Default"
+            el_trq_out = "False"
+            mech_speed_out = "False"
+            mech_angle_out = "False"
+            i_a = "False"
+            i_b = "False"
+            i_c = "False"
+            i_ds = "False"
+            i_qs = "False"
+            psi_d = "False"
+            psi_q = "False"
+            Ia = "False"
+            Ib = "False"
+            Ic = "False"
+            Te = "False"
+            wm = "False"
+            theta_m = "False"
+            dA0 = "0"
+            dA1 = "0"
+            dA2 = "0"
+            dA3 = "0"
+            dB0 = "0"
+            dB1 = "0"
+            dB2 = "0"
+            dB3 = "0"
+            Llfd = "0"
+            rfd = "0"
+            rkd = "0"
+            rkq = "0"
+            Lz = "0"
+            Lzd = "0"
+            Lzq = "0"
+            rs = "0"
+            Llkd = "0"
+            Llkq = "0"
+            PP = ""
+            Lmd = "0"
+            Lmq = "0"
+            Lls = "0"
+            ws = "0"
+        }
+
+        "core/Three-phase Meter" {
+            n_cycles = "1"
+            enable_probes = "True"
+            enable_out = "True"
+            remove_snubber = "False"
+            R = "1e5"
+            enable_bandwidth = "False"
+            bandwidth = "10e3"
+            execution_rate = "100e-6"
+            Ts = "100e-6"
+            VAn = "True"
+            VBn = "True"
+            VCn = "True"
+            VAB = "False"
+            VBC = "False"
+            VCA = "False"
+            VN = "False"
+            IA = "True"
+            IB = "True"
+            IC = "True"
+            IN = "False"
+            freq = "False"
+            Vd = "False"
+            Vq = "False"
+            Vz = "False"
+            Vpeak = "False"
+            wt = "False"
+            sin_wt = "False"
+            VLn_rms = "False"
+            VLL_rms = "False"
+            VLn_avg_rms = "False"
+            VLL_avg_rms = "False"
+            VN_rms = "False"
+            I_rms = "False"
+            I_avg_rms = "False"
+            IN_rms = "False"
+            P_method = "alpha-beta"
+            P_meas = "False"
+            enable_extra_out = "False"
+            filter_order = "second order"
+            filter_cutoff_Hz = "30"
+            enable_inst_ports = "False"
+        }
+
+        "core/Transmission Line" {
+            model = "RL coupled"
+            num_of_phases = "3"
+            model_def = "Geometry"
+            unit_sys = "imperial"
+            unit_sys_edited_flag = "0"
+            Length_metric = "100.0"
+            Length_miles = "62.1371"
+            Frequency = "60.0"
+            Earth_resistivity = "100"
+            X_axis_1_metric = "-1.0668"
+            Y_axis_1_metric = "8.5344"
+            GMR_1_metric = "0.00743712"
+            RD_1_metric = "0.009156192"
+            Rs_1_metric = "0.19013958482462417"
+            X_axis_1_imperial = "-3.5"
+            Y_axis_1_imperial = "28.0"
+            GMR_1_imperial = "0.0244"
+            RD_1_imperial = "0.03004"
+            Rs_1_imperial = "0.306"
+            X_axis_2_metric = "-0.3048"
+            Y_axis_2_metric = "8.5344"
+            GMR_2_metric = "0.00743712"
+            RD_2_metric = "0.009156192"
+            Rs_2_metric = "0.19013958482462417"
+            X_axis_2_imperial = "-1.0"
+            Y_axis_2_imperial = "28.0"
+            GMR_2_imperial = "0.0244"
+            RD_2_imperial = "0.03004"
+            Rs_2_imperial = "0.306"
+            X_axis_3_metric = "1.0668"
+            Y_axis_3_metric = "8.5344"
+            GMR_3_metric = "0.00743712"
+            RD_3_metric = "0.009156192"
+            Rs_3_metric = "0.19013958482462417"
+            X_axis_3_imperial = "3.5"
+            Y_axis_3_imperial = "28.0"
+            GMR_3_imperial = "0.0244"
+            RD_3_imperial = "0.03004"
+            Rs_3_imperial = "0.306"
+            X_axis_4_metric = "0.1524"
+            Y_axis_4_metric = "7.3152"
+            GMR_4_metric = "0.00248"
+            RD_4_metric = "0.00714"
+            Rs_4_metric = "0.3678"
+            X_axis_4_imperial = "0.5"
+            Y_axis_4_imperial = "24.0"
+            GMR_4_imperial = "0.00814"
+            RD_4_imperial = "0.02345"
+            Rs_4_imperial = "0.592"
+            R_metric = "[[0.2481, 0.0579, 0.0579], [0.0579, 0.2481, 0.0579], [0.0579, 0.0579, 0.2481]]"
+            R_imperial = "[[0.4, 0.093, 0.093], [0.093, 0.4, 0.093], [0.093, 0.093, 0.4]]"
+            L_metric = "[[0.00233, 0.00140, 0.00140], [0.00140, 0.00233, 0.00140], [0.00140, 0.00140, 0.00233]]"
+            L_imperial = "[[0.00374, 0.0022, 0.0022], [0.0022, 0.00374, 0.0022], [0.0022, 0.0022, 0.00374]]"
+            C_metric = "[[8.546e-9, 0, 0], [0, 8.546e-9, 0], [0, 0, 8.546e-9]]"
+            C_imperial = "[[1.471e-8, 0, 0], [0, 1.530e-8, 0], [0, 0, 1.375e-8]]"
+            R_sequence_metric = "[[0.3864, 0, 0],[0, 0.01273, 0], [0, 0, 0.01273]]"
+            L_sequence_metric = "[[4.1264e-3, 0, 0],[0, 0.9337e-3, 0], [0, 0, 0.9337e-3]]"
+            C_sequence_metric = "[[7.751e-9, 0, 0],[0, 12.74e-9, 0], [0, 0, 12.74e-9]]"
+            R_sequence_imperial = "[[0.6218, 0, 0],[0, 0.0204, 0], [0, 0, 0.0204]]"
+            L_sequence_imperial = "[[0.00664, 0, 0],[0, 0.00150, 0], [0, 0, 0.00150]]"
+            C_sequence_imperial = "[[1.247e-8, 0, 0],[0, 2.0503e-8, 0], [0, 0, 2.0503e-8]]"
+            import_from_geometry = "Import from Geometry"
+            import_from_RLC = "Import from RLC"
+            type_of_trans = "trans_line"
+            embedded_coupling = "False"
+            ratio_type = "Manual"
+            ratio = "0.01"
+        }
+    }
+}
